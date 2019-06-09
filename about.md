@@ -7,6 +7,7 @@ permalink: /about/
 Team Tapas(2017~)
 
 표류소녀 시즌2 개발
+
 용사식당 개발중
 
 
