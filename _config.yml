@@ -1,0 +1,59 @@
+# Site settings
+title: GarlicDipping's tech blog
+url: "http://garlicdipping.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
+#timezone: Asia/Seoul
+description: >
+  팀 타파스 개발자 김민수(갈릭디핑)의 기술 관련 블로그입니다.
+
+# Your information
+email: garlicdipping@gmail.com
+author: Minsoo Kim
+avatar: "//www.gravatar.com/avatar/your_email_md5?d=mm&s=135"
+profile: Programmer @ Team Tapas.
+twitter_username: TDippingSauce
+github_username:  GarlicDipping
+profile_links:
+  Email: "mailto:garlicdipping101@gmail.com"
+  GitHub: "https://github.com/GarlicDipping"
+  # You can add more profile links above, or edit _includes/sidebar.html 
+
+# Comment Service (Disqus or 多说)
+#  choose one and un-comment the line to active it
+#disqus_shortname: xxx   # get one: https://disqus.com/admin/signup/
+#duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
+
+excerpt_separator: <!--more-->
+
+header:
+  links:             # Links on the header. Link to in-site page with a slash as prefix
+    About: /about/
+    Category: /category/
+    #Donate: https://laobubu.net/donate.html
+
+permalink: /archivers/:title
+plugins:
+ - jekyll-paginate
+ - jekyll-gist
+ - jemoji
+
+# Build settings
+paginate: 5
+paginate_path: "page:num"
+
+highlighter: rouge
+markdown: kramdown
+
+# https://jekyllrb.com/docs/configuration/#precedence
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: mathjax
