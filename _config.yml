@@ -2,7 +2,7 @@
 title: GarlicDipping's tech blog
 url: "http://garlicdipping.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
-#timezone: Asia/Seoul
+timezone: Asia/Seoul
 description: >
   팀 타파스 개발자 김민수(갈릭디핑)의 기술 관련 블로그입니다.
 
