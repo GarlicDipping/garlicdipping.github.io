@@ -8,4 +8,5 @@ permalink: /notice/hello
 
 개인적으로 기록해두고 싶은 기술 관련 읽을거리들을 저장해두거나 간단한 기술 관련 토픽을 다루기 위해 만들었습니다.
 
-I created this blog to store other tech blog's post links and sometimes will talk about tech topics I managed.
+I created this blog to store other tech blog's post links.
+Sometimes will talk about tech topics I managed.
