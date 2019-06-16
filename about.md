@@ -2,7 +2,7 @@
 layout: page
 title: About
 permalink: /about/
-comment: false
+nocomments: true
 ---
 
 ![Image Team Tapas](/assets/img/about/teamtapas-logox2.png){: width="25%" height="25%"}  
