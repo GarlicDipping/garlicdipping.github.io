@@ -18,9 +18,13 @@ layout: default
         <div class="post-excerpt">
           {%   if post.content contains site.excerpt_separator or post.content != post.excerpt %}{{ post.excerpt }}
           {%   else %}{{ post.excerpt }}{% endif %}
-          <div style="height: 30px;" href="{{ post.url | prepend: site.baseurl }}">
-            <horizontal-dot ></horizontal-dot>
-          </div>
+          <a href="{{ post.url | prepend: site.baseurl }}">
+            <div class="three-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </a>
           <p>
             <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More &raquo;</a>
           </p>

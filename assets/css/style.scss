@@ -2,37 +2,15 @@
 ---
 
 @import "{{ site.theme }}";
-horizontal-dot {
-    position: relative;
-    background-color: grey;
-    height: 20px;
-    border-radius: 5px;
-    font-size: 0;
-    margin-left: 20px;
-    padding: 5px;
+.three-dots {
+    text-align: center;
 }
 
-horizontal-dot:before {
-    position: absolute;
-    left: -20px;
-    top: 0;
-    content: '';
-
-    background-color: grey;
-    height: 20px;
-    border-radius: 5px;
-    font-size: 0;
-    padding: 5px;
-}
-
-horizontal-dot:after {
-    position: absolute;
-    left: 20px;
-    top: 0;
-    content: '';
-    background-color: grey;
-    height: 20px;
-    border-radius: 5px;
-    font-size: 0;    
-    padding: 5px;
+.three-dots span {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: grey;
+    display: inline-block;
+    margin: 0 5px;
 }
