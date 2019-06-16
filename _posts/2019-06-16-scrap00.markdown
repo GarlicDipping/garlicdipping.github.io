@@ -8,77 +8,34 @@ tags:
 modified_time: '2019-06-09T01:36:23.024-07:00'
 ---
 
-[곱셈을 하는 가장 완벽한
-방법](https://www.wired.com/story/mathematicians-discover-the-perfect-way-to-multiply)
-
-[컨테이너의
-구조](https://medium.freecodecamp.org/demystifying-containers-101-a-deep-dive-into-container-technology-for-beginners-d7b60d8511c1)
-
-<https://80.lv/articles/stylized-water-shader-in-unity/>
-
-[MySQL 사용사 추가 및
-삭제](https://ourcstory.tistory.com/m/45)
-
-[Producer-Consumer 디자인
-패턴](https://michaelscodingspot.com/performance-of-producer-consumer)
-
-[유니티 네이티브
-프로파일링](https://www.slideshare.net/JaeseungHa/ndc2018-96510072)
-
-[리눅스 메모리
-보호기법](https://bpsecblog.wordpress.com/2016/05/16/memory_protect_linux_1/)
-
-[오픈소스 시뮬레이션 게임
-CityBound](https://github.com/citybound/citybound) 깃허브
-
-[가독성 높은 코드
-만들기](https://crazygun22.com/2019/04/12/%EA%B0%80%EB%8F%85%EC%84%B1-%EB%86%92%EC%9D%80-%EC%BD%94%EB%93%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EB%B0%A9%EB%B2%95-4-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%83%81%EC%86%8D-%ED%94%BC%ED%95%98%EA%B8%B0/)
-
-[마소 양자컴퓨터 언어 Q\#
-오픈소스화](http://m.zdnet.co.kr/news_view.asp?article_id=20190509104301&re=zdk)
-
-[Amazon S3 Path Deprecation Plan -- The Rest of the
-Story](https://aws.amazon.com/ko/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/)
-
-[성능테스트
-설명](https://gist.github.com/ihoneymon/bb992b3d57230a8e66749db1395538bd)
-
-[PHP Best Practices](https://phpbestpractices.org/)
-
-[한조 용용이
-만들기](https://www.youtube.com/watch?v=tYq58H6-Yqc)
-
-[이펙트 제작자, Harry Alisavakis
-블로그](https://halisavakis.com/write-up-tornado-explosion/)
-
-[커널 오브젝트](https://dakuo.tistory.com/84)
-
-[데드
-레커닝](https://www.gamasutra.com/view/feature/131638/dead_reckoning_latency_hiding_for_.php)
-
-[Unity Dead
-Reckoning?](https://forum.unity.com/threads/dead-reckoning.444283/)
-
-<https://www.youtube.com/user/handmadeheroarchive> 
-
-[Netcode 101](https://www.youtube.com/watch?v=hiHP0N-jMx8)
-
-[\[NDC\] CAP 이론을 통한 네트워크 동기화
-기법](https://www.youtube.com/watch?v=j3eQNm-Wk04)
-
-영상 후반부 Determinism에 대한 부분은 정말 보석같은 내용
-
-코드분석 해보자
-
--   <https://github.com/zeliard/PongRewind/> 
-
-소수점 동기화 조금 더 조사
-
--   <https://stackoverflow.com/questions/6683059/is-floating-point-math-consistent-in-c-can-it-be>
--   <https://gamedev.stackexchange.com/questions/14776/how-are-deterministic-games-possible-in-the-face-of-floating-point-non-determini>
-
-[\[NDC\] 윈도우 서버 메모리릭
-모니터링](https://www.youtube.com/watch?v=HH5gW5ov-78)
+- [곱셈을 하는 가장 완벽한 방법](https://www.wired.com/story/mathematicians-discover-the-perfect-way-to-multiply)
+- [컨테이너의 구조](https://medium.freecodecamp.org/demystifying-containers-101-a-deep-dive-into-container-technology-for-beginners-d7b60d8511c1)
+- <https://80.lv/articles/stylized-water-shader-in-unity/>
+- [MySQL 사용사 추가 및 삭제](https://ourcstory.tistory.com/m/45)
+- [Producer-Consumer 디자인 패턴](https://michaelscodingspot.com/performance-of-producer-consumer)
+- [유니티 네이티브 프로파일링](https://www.slideshare.net/JaeseungHa/ndc2018-96510072)
+- [리눅스 메모리 보호기법](https://bpsecblog.wordpress.com/2016/05/16/memory_protect_linux_1/)
+- [오픈소스 시뮬레이션 게임 CityBound](https://github.com/citybound/citybound) 깃허브
+- [가독성 높은 코드 만들기](https://crazygun22.com/2019/04/12/%EA%B0%80%EB%8F%85%EC%84%B1-%EB%86%92%EC%9D%80-%EC%BD%94%EB%93%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EB%B0%A9%EB%B2%95-4-%EC%9E%98%EB%AA%BB%EB%90%9C-%EC%83%81%EC%86%8D-%ED%94%BC%ED%95%98%EA%B8%B0/)
+- [마소 양자컴퓨터 언어 Q\# 오픈소스화](http://m.zdnet.co.kr/news_view.asp?article_id=20190509104301&re=zdk)
+- [Amazon S3 Path Deprecation Plan -- The Rest of the Story](https://aws.amazon.com/ko/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/)
+- [성능테스트 설명](https://gist.github.com/ihoneymon/bb992b3d57230a8e66749db1395538bd)
+- [PHP Best Practices](https://phpbestpractices.org/)
+- [한조 용용이 만들기](https://www.youtube.com/watch?v=tYq58H6-Yqc)
+- [이펙트 제작자, Harry Alisavakis 블로그](https://halisavakis.com/write-up-tornado-explosion/)
+- [커널 오브젝트](https://dakuo.tistory.com/84)
+- [데드 레커닝](https://www.gamasutra.com/view/feature/131638/dead_reckoning_latency_hiding_for_.php)
+  - [Unity Dead Reckoning?](https://forum.unity.com/threads/dead-reckoning.444283/)
+- <https://www.youtube.com/user/handmadeheroarchive> 
+- [Netcode 101](https://www.youtube.com/watch?v=hiHP0N-jMx8)
+- [\[NDC\] CAP 이론을 통한 네트워크 동기화 기법](https://www.youtube.com/watch?v=j3eQNm-Wk04)
+  - 영상 후반부 Determinism에 대한 부분은 정말 보석같은 내용  
+  코드분석 해보자
+  -   <https://github.com/zeliard/PongRewind/> 
+  - 소수점 동기화 조금 더 조사
+    -   <https://stackoverflow.com/questions/6683059/is-floating-point-math-consistent-in-c-can-it-be>
+    -   <https://gamedev.stackexchange.com/questions/14776/how-are-deterministic-games-possible-in-the-face-of-floating-point-non-determini>
+- [\[NDC\] 윈도우 서버 메모리릭 모니터링](https://www.youtube.com/watch?v=HH5gW5ov-78)
 
 사둘만한 책들
 
