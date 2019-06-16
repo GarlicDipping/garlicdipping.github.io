@@ -17,8 +17,7 @@ layout: default
 
         <div class="post-excerpt">
           {%   if post.content contains site.excerpt_separator or post.content != post.excerpt %}{{ post.excerpt }}
-          {%   else %}{{ post.content | lstrip | split: "
-" | first }}{% endif %}
+          {%   else %}{{ post.content | strip_html | truncatewords:75}}{% endif %}
           <p>
             <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More &raquo;</a>
           </p>
