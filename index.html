@@ -19,7 +19,7 @@ layout: default
           {%   if post.content contains site.excerpt_separator or post.content != post.excerpt %}{{ post.excerpt }}
           {%   else %}{{ post.excerpt }}{% endif %}
           <p>
-            <a class="post-readmore-dot" href="{{ post.url | prepend: site.baseurl }}"></a>
+            <a class="horizontal-dot" href="{{ post.url | prepend: site.baseurl }}"></a>
           </p>
           <p>
             <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More &raquo;</a>

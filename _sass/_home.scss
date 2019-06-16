@@ -71,37 +71,6 @@
         }
         margin: 0 20px;
     }
-    .post-readmore-dot {
-        position: relative;
-        background-color: grey;
-        border-radius: 5px;
-        font-size: 0;
-        margin-left: 20px;
-        padding: 5px;
-    }
-    
-    .post-readmore-dot:before {
-        position: absolute;
-        left: -20px;
-        top: 0;
-        content: '';
-    
-        background-color: grey;
-        border-radius: 5px;
-        font-size: 0;
-        padding: 5px;
-    }
-    
-    .post-readmore-dot:after {
-        position: absolute;
-        left: 20px;
-        top: 0;
-        content: '';
-        background-color: grey;
-        border-radius: 5px;
-        font-size: 0;    
-        padding: 5px;
-    }
     @include media-query($on-palm) {
 		padding: 10px;
     }
