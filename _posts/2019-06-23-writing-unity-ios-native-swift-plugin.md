@@ -155,13 +155,13 @@ GarlicWebviewUnityWrapper.swift 클래스는 말 그대로 유니티에 노출�
 
 그러나 현재 작성중인 브릿지 프로젝트는 Framework Target으로 만들어졌으므로 임포트시 ProductName을 같이 정의해 주어야 한다. 형식은 다음과 같다.
 
-> #import <ProductName/ProductModuleName-Swift.h>
+`#import <ProductName/ProductModuleName-Swift.h>`
 
 * 여기서 Build Settings-Packaging-Defines Module 세팅이 Yes로 되어있는지도 반드시 체크하자.
 
-위 형식을 따르면, 유니티 브릿징 프로젝트의 Swift 헤더는 다음과 같이 임포트해야 할 것이다.
+위 형식을 따르면, 현재 예제의 유니티 브릿징 프로젝트 Swift 헤더는 다음과 같이 임포트해야 할 것이다.
 
-> #import "GarlicWebviewUnityBridge/GarlicWebviewUnityBridge-Swift.h"
+`#import "GarlicWebviewUnityBridge/GarlicWebviewUnityBridge-Swift.h`
 
 이제 .h와 .mm파일에서 에러 없이 GarlicWebviewUnityWrapper 스위프트 클래스에 접근할 수 있을 것이다!
 
@@ -179,7 +179,7 @@ GarlicWebviewUnityWrapper.swift 클래스는 말 그대로 유니티에 노출�
 
 직접 빌드해 확인해 보면 위와 같이 UnityInterface.h 파일의 존재를 확인할 수 있다. UnitySendMessage()의 정의는 다음과 같다.
 
-> void UnitySendMessage(const char* obj, const char* method, const char* msg);
+`void UnitySendMessage(const char* obj, const char* method, const char* msg);`
 
 Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #import "UnityInterface.h" 후 UnitySendMessage()로 간단하게 콜백 전달이 가능하겠지만, Swift에서 UnitySendMessage()를 쓰고 싶다면 이야기가 약간 달라진다.  
 
@@ -189,7 +189,7 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 의외로 답은 심플한데, 그냥 원하는 Objective-C 헤더 파일을 추가한 [ProjectName]-Bridging-Header.h 파일을 작성하면 된다. 우리는 Swift에서 UnityInterface.h 파일을 이용하고 싶으므로 브릿징 헤더의 내용물은 다음과 같으면 된다.
 
-> import "UnityInterface.h"
+`import "UnityInterface.h`
 
 그리고 Build Settings에서 해당 브릿징 헤더 파일을 연결해 주면 된다.
 
