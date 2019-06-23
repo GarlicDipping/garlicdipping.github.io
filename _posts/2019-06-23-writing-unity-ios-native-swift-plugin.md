@@ -205,7 +205,7 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 <pre>
 <code>
 SWIFT_OBJC_BRIDGING_HEADER = <strong><em>/path/to/bridging-header/ProjectName-Bridging-Header.h</em></strong>
-SWIFT_OBJC_INTERFACE_HEADER_NAME = <strong><em>ProductName/ProjectName-Swift.h</strong></em>
+SWIFT_OBJC_INTERFACE_HEADER_NAME = <strong><em>ProductName/ProjectName</strong></em>-Swift.h
 </code>
 </pre>
 
