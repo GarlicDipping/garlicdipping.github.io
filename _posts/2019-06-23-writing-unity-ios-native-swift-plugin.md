@@ -46,7 +46,7 @@ GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, Garli
 </code>
 </pre>
 
-보면 알겠지만 기본적으로 GarlicWebviewController.shared.XXX 형식으로 활용한다. 이제 이 프레임워크를 유니티 브릿지에 연결시켜 보자.  
+보면 알겠지만 기본적으로 GarlicWebviewController.shared.XXX 형식으로 활용한다. 이제 이 프레임워크를 임베드한 브릿지 프로젝트가 어떻게 유니티와 연결되는지 살펴보자.
 
 # 유니티에서 iOS 네이티브 함수로의 호출
 
