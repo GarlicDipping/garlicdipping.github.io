@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://garlicdipping.github.io/sitemap.xml
