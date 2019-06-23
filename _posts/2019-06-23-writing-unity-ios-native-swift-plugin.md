@@ -33,7 +33,7 @@ categories: Unity3d
 GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, GarlicWebviewController를 포함하고 있다.  
 해당 클래스는 다음과 같이 사용한다.
 
-~~~Swift
+~~~swift
 //Inside ViewController class...
 @IBAction func onClick(_ sender: UIButton) {
     let marginPx = GarlicUtils.PointToPx(pt: 30)
@@ -58,7 +58,7 @@ GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, Garli
 
 예를 들어, 유니티에서 다음 함수를 정의한 후
 
-~~~CSharp
+~~~csharp
 //C# Code from Unity
 
 [DllImport("__Internal")]
@@ -117,7 +117,7 @@ extern "C" {
 
 GarlicWebviewUnityWrapper.swift 클래스는 말 그대로 유니티에 노출할 함수들을 다시 한번 래핑한 클래스다. Obj-C 파일에서 접근할 수 있어야 하므로 관련 로직에는 모두 @objc 선언이 붙어있어야 한다.
 
-~~~Swift
+~~~swift
 @objc public class GarlicWebviewUnityWrapper : NSObject, GarlicWebviewProtocol {
     //...
 
@@ -205,7 +205,7 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 따라서 위 두 필드는 다음과 같이 채우게 된다.
 
-~~~XML
+~~~xml
 SWIFT_OBJC_BRIDGING_HEADER = /path/to/bridging-header/ProjectName-Bridging-Header.h
 SWIFT_OBJC_INTERFACE_HEADER_NAME = ProductName/ProjectName-Swift.h
 ~~~
@@ -217,7 +217,7 @@ SWIFT_OBJC_BRIDGING_HEADER 필드의 경우 프레임워크를 유니티의 어�
 
 유니티에서 빌드한 직후에는 항상 Build Settings의 위 두 필드(SWIFT_OBJC_BRIDGING_HEADER, SWIFT_OBJC_INTERFACE_HEADER_NAME)가 비어있다. 매번 수정하는 것도 하나의 방법이지만 만약 귀찮다면 유니티의 [PostProcessBuild] 기능을 이용할 수도 있다. 유니티 2017부터 소개된 Xcode Extensions API도 잘 활용하면 쉽게 이 부분을 자동화할 수 있다.
 
-~~~CSharp
+~~~csharp
 [PostProcessBuild]
 public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath) {
     if(buildTarget == BuildTarget.iOS) {
