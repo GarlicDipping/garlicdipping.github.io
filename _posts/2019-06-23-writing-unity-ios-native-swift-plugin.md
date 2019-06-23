@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Swift5로 유니티 iOS 네이티브 플러그인 만들기
+title: Swift로 유니티 iOS 네이티브 플러그인 만들기
 date:   2019-06-23 20:00:00
 author: GarlicDipping
 tags:
@@ -8,7 +8,7 @@ tags:
 categories: Unity3d
 ---
 
-현재 개발중인 게임의 개발 마무리 단계가 다가보면서, 미뤄뒀던 구현 사항들을 슬슬 하나둘씩 매듭지어야 하는 시기가 왔다.
+현재 개발중인 게임의 개발 마무리 단계가 다가오면서, 미뤄뒀던 구현 사항들을 슬슬 하나둘씩 매듭지어야 하는 시기가 왔다.
 
 그 중 하나가 공지사항을 띄우기 위한 용도로 이용할 웹뷰였다. 이런저런 유니티 웹뷰 플러그인들이 있지만 아마 [gree에서 공개한 gree-webview](https://github.com/gree/unity-webview)가 가장 널리 쓰이는 물건이 아닐까 싶은데, 솔직히 말하자면 단순 공지 웹페이지 Get 용도로만 사용할 플러그인으로서는 기능이 지나치게 많고 무거웠다.  
 
@@ -243,7 +243,14 @@ public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath)
 >프레임워크 이름, 폴더 구조 등에 따라 Path는 제각각이므로 프레임워크가 제대로 로드되지 않는다면 유니티에서 Xcode 프로젝트 빌드 후 Frameworks 폴더와 Libraries 폴더를 점검해 보자.
 
 <br/>
+
+- 브릿지 프로젝트 샘플은 [이곳에서](https://github.com/GarlicDipping/GarlicWebview-Unity/tree/master/GarlicWebview-iOS/GarlicWebviewUnityBridge/GarlicWebviewUnityBridge/GarlicWebviewUnityBridge) 보실 수 있습니다. 
+- 웹뷰 플러그인에 관심이 있으시면 [GarlicWebview 깃허브 프로젝트](https://github.com/GarlicDipping/GarlicWebview-Unity)를 확인해 보세요!
+
+
 <br/>
+<br/>
+
 참고자료
 
 - https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c
