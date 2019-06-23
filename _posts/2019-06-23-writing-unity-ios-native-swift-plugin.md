@@ -108,7 +108,7 @@ extern "C" {
 
 - **GarlicWebviewUnityWrapper.swift**
   - 코어 모듈의 로직을 한번 더 감싼다. 이 클래스의 코드는 *GarlicWebviewWrapper.h*와 *GarlicWebviewWrapper.mm* Objective-C 코드에게 노출될 것이다.  
-    - 또한, 이 클래스는 코어 모듈에서의 콜백 Receiver 역할도 겸하고 있다. 콜백을 받으면 Objective-C 함수 UnitySendMessage()를 이용해 유니티로 올려주는 로직이 포함되어 있다.
+  - 또한, 이 클래스는 코어 모듈에서의 콜백 Receiver 역할도 겸하고 있다. 콜백을 받으면 Objective-C 함수 UnitySendMessage()를 이용해 유니티로 올려주는 로직이 포함되어 있다.
 - **GarlicWebviewWrapper.mm**
   - extern "C"를 통해 유니티와 통신하는 Obj-C 로직이 구현되어 있다.
 - **GarlicWebviewWrapper.h**  
