@@ -33,8 +33,7 @@ categories: Unity3d
 GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, GarlicWebviewController를 포함하고 있다.  
 해당 클래스는 다음과 같이 사용한다.
 
-<pre>
-<code>
+```Swift
 //Inside ViewController class...
 
 @IBAction func onClick(_ sender: UIButton) {
@@ -43,8 +42,7 @@ GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, Garli
     GarlicWebviewController.shared.SetMargins(left: marginPx, right: marginPx, top: marginPx, bottom: marginPx)
     GarlicWebviewController.shared.Show(url: "https://www.teamtapas.com")
 }
-</code>
-</pre>
+```
 
 보면 알겠지만 기본적으로 GarlicWebviewController.shared.XXX 형식으로 활용한다. 이제 이 프레임워크를 임베드한 브릿지 프로젝트가 어떻게 유니티와 연결되는지 살펴보자.
 
@@ -61,19 +59,16 @@ GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, Garli
 
 예를 들어, 유니티에서 다음 함수를 정의한 후
 
-<pre>
-<code>
+```C#
 //C# Code from Unity
 
 [DllImport("__Internal")]
 internal static extern void __IOS_MyFunc();
-</code>
-</pre>
+```
 
 위 함수를 호출하면, Objective-C 파일에서 extern "C"로 정의된 
 
-<pre>
-<code>
+```Objective-C
 #pragma mark - C interface
 
 extern "C" {
@@ -83,11 +78,10 @@ extern "C" {
     {
         [[YourSwiftWrapperClass instance] MyFunc];
     }
-    
+
     ...
 }
-</code>
-</pre>
+```
 
 위 함수로 호출이 연결되며, 모든 로직을 Objective-C로 구현했다면 여기에서 문제 없이 코딩을 마무리할 수 있을 것이다.  
 
@@ -124,8 +118,7 @@ extern "C" {
 
 GarlicWebviewUnityWrapper.swift 클래스는 말 그대로 유니티에 노출할 함수들을 다시 한번 래핑한 클래스다. Obj-C 파일에서 접근할 수 있어야 하므로 관련 로직에는 모두 @objc 선언이 붙어있어야 한다.
 
-<pre>
-<code>
+```Swift
 @objc public class GarlicWebviewUnityWrapper : NSObject, GarlicWebviewProtocol {
     ...
 
@@ -134,8 +127,8 @@ GarlicWebviewUnityWrapper.swift 클래스는 말 그대로 유니티에 노출�
     }
 
     ...
-</code>
-</pre>
+}
+```
 
 위와 같이 스위프트 클래스에 @objc 선언을 붙이면 Objective-C 코드에서도 스위프트 클래스 및 함수에 접근할 수 있다. 여기서부터는 유니티와는 별개로 Swift 클래스를 Objective-C에서 쓸 수 있도록 설정하는 부분에 대한 이해가 필요하다.
 
@@ -213,7 +206,7 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 따라서 위 두 필드는 다음과 같이 채우게 된다.
 
-```
+```XML
 SWIFT_OBJC_BRIDGING_HEADER = /path/to/bridging-header/ProjectName-Bridging-Header.h
 SWIFT_OBJC_INTERFACE_HEADER_NAME = ProductName/ProjectName-Swift.h
 ```
@@ -224,8 +217,8 @@ SWIFT_OBJC_BRIDGING_HEADER 필드의 경우 프레임워크를 유니티의 어�
 # iOS PostProcessing
 
 유니티에서 빌드한 직후에는 항상 Build Settings의 위 두 필드(SWIFT_OBJC_BRIDGING_HEADER, SWIFT_OBJC_INTERFACE_HEADER_NAME)가 비어있다. 매번 수정하는 것도 하나의 방법이지만 만약 귀찮다면 유니티의 [PostProcessBuild] 기능을 이용할 수도 있다. 유니티 2017부터 소개된 Xcode Extensions API도 잘 활용하면 쉽게 이 부분을 자동화할 수 있다.
-<pre>
-<code>
+
+```C#
 [PostProcessBuild]
 public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath) {
     if(buildTarget == BuildTarget.iOS) {
@@ -245,12 +238,11 @@ public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath)
         string fileGuid = proj.AddFile(framework, "Frameworks/" + framework, PBXSourceTree.Sdk);
         proj.SetBuildProperty(targetGuid, "LD_RUNPATH_SEARCH_PATHS", "$(inherited) @executable_path/Frameworks");
         PBXProjectExtensions.AddFileToEmbedFrameworks(proj, targetGuid, fileGuid);
-        
+
         proj.WriteToFile(projPath);
     }
 }
-</code>
-</pre>
+```
 
 위 코드에서는 프레임워크도 매번 Embedded에 직접 추가하기에는 불편하니 AddFileToEmbedFrameworks를 이용해 자동화한다.  
 위와 같이 설정하면 이제 일일히 Build Settings를 만져줘야 하는 불편함을 덜 수 있을 것이다.
@@ -268,7 +260,7 @@ public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath)
 
 참고자료
 
-- https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c
-- https://docs.unity3d.com/kr/current/Manual/PluginsForIOS.html
-- http://seorenn.blogspot.com/2014/07/swift-objective-c.html 
-- http://seorenn.blogspot.com/2014/08/objective-c-swift.html
+- <https://developer.apple.com/documentation/swift/imported_c_and_objective-c_apis/importing_swift_into_objective-c>
+- <https://docs.unity3d.com/kr/current/Manual/PluginsForIOS.html>
+- <http://seorenn.blogspot.com/2014/07/swift-objective-c.html>
+- <http://seorenn.blogspot.com/2014/08/objective-c-swift.html>
