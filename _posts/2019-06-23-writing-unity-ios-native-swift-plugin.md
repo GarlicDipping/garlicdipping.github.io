@@ -191,7 +191,16 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 `import "UnityInterface.h`
 
-그리고 Build Settings에서 해당 브릿징 헤더 파일을 연결해 주면 된다.
+하지만 이걸로 끝이 아니고, Build Settings에서 어느 파일이 브릿지 헤더로 쓰일 것인지 지정해 주어야 한다. 평범한 iOS 앱 개발 워크플로우였다면 이런 과정이 자동으로 처리되나, 모듈 개발 또는 지금처럼 유니티 integration이 필요한 경우에는 직접 Build Settings에서 옵션을 주어야 한다.  
+
+다만, 네이티브 모듈 프로젝트에서 해당 옵션을 설정해 봐야 아무 소용이 없고, 유니티에서 빌드 후 생성된 XCode 프로젝트에 옵션을 설정해야 한다. 이제 마지막 단계로 가 보자.
+
+## Build Settings
+
+프레임워크와 브릿지 프로젝트를 유니티에 임포트했다면, 한번 빌드를 해 보자.  
+만약 브릿지 프로젝트에서 UnitySendMessage를 쓰고 있었다면 유니티 Xcode Project 빌드 후에는 더이상 에러 메세지가 보이지 않을 것이다. 존재하지 않았던 UnityInterface.h 파일이 빌드 과정에서 포함되었기 때문이다.  
+
+빌드된 프로젝트를 열어 Build Settings 탭을 살펴보면 다음과 같은 옵션이 보일 것이다.
 
 ![Image Alt SwiftCompiler](/assets/img/posts/20190623/xcode-swift-compiler.png)  
 
@@ -204,18 +213,17 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 따라서 위 두 필드는 다음과 같이 채우게 된다.
 
-<code>
+```
 SWIFT_OBJC_BRIDGING_HEADER = /path/to/bridging-header/ProjectName-Bridging-Header.h
 SWIFT_OBJC_INTERFACE_HEADER_NAME = ProductName/ProjectName-Swift.h
-</code>
+```
 
-이 사실을 기억해 두고 브릿지 프로젝트를 프레임워크와 함께 복사하여 유니티의 /Plugins/iOS/ 폴더에 복사해 붙여넣은 뒤 빌드하면 작업은 일단락될 것이다.
+SWIFT_OBJC_BRIDGING_HEADER 필드의 경우 프레임워크를 유니티의 어느 위치에 어떻게 임포트했느냐에 따라 위치가 달라지므로 Project Hierarchy에서 잘 체크하자.  
+코어 프레임워크의 임베드까지 무사히 설정했다면 드디어 스위프트로 빌드된 네이티브 플러그인이 실행될 것이다.
 
 # iOS PostProcessing
 
-Bridge 프로젝트를 코어 프레임워크와 함께 유니티에 복사한 후 빌드하면 위 두 필드가 비어있다. 따라서 해당 필드를 적절히 채워 주면 무사히 네이티브 프레임워크를 활용할 수 있게 될 것이다.
-
-다만 SWIFT_OBJC_BRIDGING_HEADER 필드의 경우 프레임워크를 유니티의 어느 위치에 어떻게 임포트했느냐에 따라 위치가 달라진다. 일단 빌드한 후 Path를 확인하여 Build Setting을 설정해도 되지만, 만약 매번 유니티에서 빌드할때마다 이것을 수정하는 일이 귀찮다면 유니티의 [PostProcessBuild] 기능을 이용할 수도 있다. 유니티 2017부터 소개된 Xcode Extensions 기능을 활용하면 쉽게 이 부분을 자동화할 수 있다.
+유니티에서 빌드한 직후에는 항상 Build Settings의 위 두 필드(SWIFT_OBJC_BRIDGING_HEADER, SWIFT_OBJC_INTERFACE_HEADER_NAME)가 비어있다. 매번 수정하는 것도 하나의 방법이지만 만약 귀찮다면 유니티의 [PostProcessBuild] 기능을 이용할 수도 있다. 유니티 2017부터 소개된 Xcode Extensions API도 잘 활용하면 쉽게 이 부분을 자동화할 수 있다.
 <pre>
 <code>
 [PostProcessBuild]
@@ -244,7 +252,7 @@ public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath)
 </code>
 </pre>
 
-프레임워크도 매번 Embedded에 직접 추가하기에는 불편하니 AddFileToEmbedFrameworks를 이용해 자동화한다.  
+위 코드에서는 프레임워크도 매번 Embedded에 직접 추가하기에는 불편하니 AddFileToEmbedFrameworks를 이용해 자동화한다.  
 위와 같이 설정하면 이제 일일히 Build Settings를 만져줘야 하는 불편함을 덜 수 있을 것이다.
 
 >프레임워크 이름, 폴더 구조 등에 따라 Path는 제각각이므로 프레임워크가 제대로 로드되지 않는다면 유니티에서 Xcode 프로젝트 빌드 후 Frameworks 폴더와 Libraries 폴더를 점검해 보자.
