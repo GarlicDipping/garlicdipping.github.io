@@ -116,6 +116,8 @@ extern "C" {
   스위프트 코드에서 Objective-C 함수를 이용하기 위해서는 브릿징 헤더가 필요하다.  
   GarlicWebviewUnityWrapper.swift 클래스가 UnitySendMessage라는 Obj-C 함수를 호출할 수 있도록 돕는다.
 
+>위 파일들의 코드는 [GarlicWebview-iOS 레포지토리에서](https://github.com/GarlicDipping/GarlicWebview-Unity/tree/master/GarlicWebview-iOS/GarlicWebviewUnityBridge/GarlicWebviewUnityBridge/GarlicWebviewUnityBridge/Classes) 볼 수 있다.
+
 > 참고로 UnitySendMessage()는 유니티가 작성한 UnityInterface.h 헤더 파일에 선언되어 있는 Objective-C 함수이다. 이 함수를 통해 Objective-C 코드는 유니티에게 메세지를 전달할 수 있다. UnityInterface.h 파일은 유니티 엔진에서 XCode 프로젝트를 빌드하기 전까지는 프로젝트에 포함되지 않으므로, 브릿징 프로젝트에서 UnitySendMessage() 호출에 해당 함수가 존재하지 않는다는 에러가 뜨거나 UnityInterface.h 파일이 없다고 에러가 뜨는 것은 정상임을 참고하자.
 
 ## Objective-C에서 Swift 클래스 및 함수 사용하기
