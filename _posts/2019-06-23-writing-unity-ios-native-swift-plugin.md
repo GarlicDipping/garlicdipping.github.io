@@ -202,12 +202,10 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 따라서 위 두 필드는 다음과 같이 채우게 된다.
 
-<pre>
 <code>
-SWIFT_OBJC_BRIDGING_HEADER = <strong><em>/path/to/bridging-header/ProjectName-Bridging-Header.h</em></strong>
-SWIFT_OBJC_INTERFACE_HEADER_NAME = <strong><em>ProductName/ProjectName</strong></em>-Swift.h
+SWIFT_OBJC_BRIDGING_HEADER = /path/to/bridging-header/ProjectName-Bridging-Header.h
+SWIFT_OBJC_INTERFACE_HEADER_NAME = ProductName/ProjectName-Swift.h
 </code>
-</pre>
 
 이 사실을 기억해 두고 브릿지 프로젝트를 프레임워크와 함께 복사하여 유니티의 /Plugins/iOS/ 폴더에 복사해 붙여넣은 뒤 빌드하면 작업은 일단락될 것이다.
 
