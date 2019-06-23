@@ -200,12 +200,12 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 - Objective-C Generated Interface Header Name (=SWIFT_OBJC_INTERFACE_HEADER_NAME)
   - Obj-C 코드가 Swift 코드를 인식할 수 있도록 도우는 Interface Header 파일 위치를 추가
 
-따라서 위 두 필드는 다음과 같이 채워져야 할 것이다.
+따라서 위 두 필드는 다음과 같이 채우게 된다.
 
 <pre>
 <code>
-SWIFT_OBJC_BRIDGING_HEADER = <strong><em>/path/to/bridging-header/</em></strong>GarlicWebviewUnityBridge-Bridging-Header.h
-SWIFT_OBJC_INTERFACE_HEADER_NAME = GarlicWebviewUnityBridge/GarlicWebviewUnityBridge-Swift.h
+SWIFT_OBJC_BRIDGING_HEADER = <strong><em>/path/to/bridging-header/ProjectName-Bridging-Header.h</em></strong>
+SWIFT_OBJC_INTERFACE_HEADER_NAME = <strong><em>ProductName/ProjectName-Swift.h</strong></em>
 </code>
 </pre>
 
