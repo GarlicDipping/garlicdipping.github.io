@@ -218,6 +218,7 @@ Bridge 프로젝트를 코어 프레임워크와 함께 유니티에 복사한 �
 다만 SWIFT_OBJC_BRIDGING_HEADER 필드의 경우 프레임워크를 유니티의 어느 위치에 어떻게 임포트했느냐에 따라 위치가 달라진다. 일단 빌드한 후 Path를 확인하여 Build Setting을 설정해도 되지만, 만약 매번 유니티에서 빌드할때마다 이것을 수정하는 일이 귀찮다면 유니티의 [PostProcessBuild] 기능을 이용할 수도 있다. 유니티 2017부터 소개된 Xcode Extensions 기능을 활용하면 쉽게 이 부분을 자동화할 수 있다.
 <pre>
 <code>
+[PostProcessBuild]
 public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath) {
     if(buildTarget == BuildTarget.iOS) {
         var projPath = buildPath + "/Unity-iPhone.xcodeproj/project.pbxproj";
