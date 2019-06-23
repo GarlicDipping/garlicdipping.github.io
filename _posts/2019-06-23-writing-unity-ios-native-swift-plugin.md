@@ -105,16 +105,16 @@ extern "C" {
 (최종적으로 작성할 파일들은 위와 같다.)
 
 각 파일들의 역할을 간단히 정리하자면 다음과 같다.  
-1. GarlicWebviewUnityWrapper.swift  
-  코어 모듈의 로직을 한번 더 감싼다. 이 클래스의 코드는 Objective-C로 노출될 것이다.  
-  또한, 코어 모듈에서의 콜백 Receiver 역할도 겸하고 있다. 콜백을 받으면 Objective-C 함수 UnitySendMessage()를 이용해 유니티로 올려주는 로직이 포함되어 있다.
-2. GarlicWebviewWrapper.mm  
-  extern "C"를 통해 유니티와 통신하는 Obj-C 로직이 구현되어 있다.
-3. GarlicWebviewWrapper.h  
-  GarlicWebviewUnityWrapper 스위프트 클래스를 Objective-C에서 이용할 수 있도록 헤더 파일을 임포트한다.
-4. GarlicWebviewUnityBridge-Bridging-Header.h  
-  스위프트 코드에서 Objective-C 함수를 이용하기 위해서는 브릿징 헤더가 필요하다.  
-  GarlicWebviewUnityWrapper.swift 클래스가 UnitySendMessage라는 Obj-C 함수를 호출할 수 있도록 돕는다.
+
+- **GarlicWebviewUnityWrapper.swift**
+  - 코어 모듈의 로직을 한번 더 감싼다. 이 클래스의 코드는 *GarlicWebviewWrapper.h*와 *GarlicWebviewWrapper.mm* Objective-C 코드에게 노출될 것이다.  
+    - 또한, 이 클래스는 코어 모듈에서의 콜백 Receiver 역할도 겸하고 있다. 콜백을 받으면 Objective-C 함수 UnitySendMessage()를 이용해 유니티로 올려주는 로직이 포함되어 있다.
+- **GarlicWebviewWrapper.mm**
+  - extern "C"를 통해 유니티와 통신하는 Obj-C 로직이 구현되어 있다.
+- **GarlicWebviewWrapper.h**  
+  - GarlicWebviewUnityWrapper 스위프트 클래스를 Objective-C에서 이용할 수 있도록 헤더 파일을 임포트한다.
+- **GarlicWebviewUnityBridge-Bridging-Header.h**  
+  - 스위프트 코드에서 Objective-C 함수를 이용하기 위한 브릿징 헤더 파일이다. GarlicWebviewUnityWrapper.swift 클래스가 UnitySendMessage라는 Obj-C 함수를 호출할 수 있도록 돕는다.
 
 >위 파일들의 코드는 [GarlicWebview-iOS 레포지토리에서](https://github.com/GarlicDipping/GarlicWebview-Unity/tree/master/GarlicWebview-iOS/GarlicWebviewUnityBridge/GarlicWebviewUnityBridge/GarlicWebviewUnityBridge/Classes) 볼 수 있다.
 
