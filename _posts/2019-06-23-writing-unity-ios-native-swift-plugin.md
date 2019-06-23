@@ -67,7 +67,7 @@ internal static extern void __IOS_MyFunc();
 
 위 함수를 호출하면, Objective-C 파일에서 extern "C"로 정의된 
 
-~~~Objective-C
+~~~objc
 #pragma mark - C interface
 
 extern "C" {
