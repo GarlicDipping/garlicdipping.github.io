@@ -185,7 +185,11 @@ Objective-C로 모든 네이티브 플러그인 로직을 짜고 있었다면, #
 
 ## Bridging Header
 
-브릿징 헤더 파일을 작성하여 프로젝트에 추가하면 스위프트에서 Obj-C 클래스와 함수를 활용할 수 있게 된다. 하지만 Xcode Project의 Build Setting에서 브릿징 헤더 파일을 추가해 주어야 한다.
+의외로 답은 심플한데, 그냥 원하는 Objective-C 헤더 파일을 추가한 [ProjectName]-Bridging-Header.h 파일을 작성하면 된다. 우리는 Swift에서 UnityInterface.h 파일을 이용하고 싶으므로 브릿징 헤더의 내용물은 다음과 같으면 된다.
+
+> import "UnityInterface.h"
+
+그리고 Build Settings에서 해당 브릿징 헤더 파일을 연결해 주면 된다.
 
 ![Image Alt SwiftCompiler](/assets/img/posts/20190623/xcode-swift-compiler.png)  
 
