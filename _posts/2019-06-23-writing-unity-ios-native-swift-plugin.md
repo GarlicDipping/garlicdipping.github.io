@@ -59,7 +59,7 @@ GarlicWebview 프로젝트는 핵심 로직을 지닌 싱글턴 클래스, Garli
 
 예를 들어, 유니티에서 다음 함수를 정의한 후
 
-```C#
+```CSharp
 //C# Code from Unity
 
 [DllImport("__Internal")]
@@ -72,14 +72,14 @@ internal static extern void __IOS_MyFunc();
 #pragma mark - C interface
 
 extern "C" {
-    ...
+    //...
 
     void __IOS_MyFunc()
     {
         [[YourSwiftWrapperClass instance] MyFunc];
     }
 
-    ...
+    //...
 }
 ```
 
@@ -120,13 +120,13 @@ GarlicWebviewUnityWrapper.swift 클래스는 말 그대로 유니티에 노출�
 
 ```Swift
 @objc public class GarlicWebviewUnityWrapper : NSObject, GarlicWebviewProtocol {
-    ...
+    //...
 
     @objc public func Initialize(parentUIView:UIViewController) {
         GarlicWebviewController.shared.Initialize(parentUIView: parentUIView.view!, garlicDelegate: self)
     }
 
-    ...
+    //...
 }
 ```
 
@@ -218,7 +218,7 @@ SWIFT_OBJC_BRIDGING_HEADER 필드의 경우 프레임워크를 유니티의 어�
 
 유니티에서 빌드한 직후에는 항상 Build Settings의 위 두 필드(SWIFT_OBJC_BRIDGING_HEADER, SWIFT_OBJC_INTERFACE_HEADER_NAME)가 비어있다. 매번 수정하는 것도 하나의 방법이지만 만약 귀찮다면 유니티의 [PostProcessBuild] 기능을 이용할 수도 있다. 유니티 2017부터 소개된 Xcode Extensions API도 잘 활용하면 쉽게 이 부분을 자동화할 수 있다.
 
-```C#
+```CSharp
 [PostProcessBuild]
 public static void OnPostProcessBuild(BuildTarget buildTarget, string buildPath) {
     if(buildTarget == BuildTarget.iOS) {
