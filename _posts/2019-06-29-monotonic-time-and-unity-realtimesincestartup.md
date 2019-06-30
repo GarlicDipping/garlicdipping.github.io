@@ -53,9 +53,11 @@ Sleep 상태에서도 지나간 시간을 시뮬레이션하므로 **진짜** �
 
 ### iOS
 
-그러나 아쉽게도 iOS 환경에서는 하드웨어의 부팅 이후 Uptime을 구하는 API를 High Level단에서 제공하지 않는다. 시스템 콜을 한번 통해야 해당 변수를 가져올 수 있는데, 이를 먼저 살펴본 뒤 안드로이드의 SystemClock 클래스를 한번 뜯어보자.  
+그러나 아쉽게도 iOS 환경에서는 하드웨어의 부팅 이후 Uptime을 구하는 API를 High Level단에서 제공하지 않는다. 커널 함수를 통해야 해당 변수를 가져올 수 있는데, 우선 이를 먼저 살펴본 뒤 안드로이드의 SystemClock 클래스를 한번 뜯어보자.  
 
-iOS는 iOS 10버전 이후와 이전의 구현 방법이 다소 다르다. iOS10 이후부터 clock_gettime 함수가 구현되어 내장되었는데, 그 이전 버전의 경우에는 sysctl을 통해 부트 타임을 가져온 뒤 현재 시간에서 빼는 방법으로 하드웨어 Uptime을 계산해야한다.
+iOS는 iOS 10버전 이후와 이전의 구현 방법이 다소 다르다. iOS10 이후부터 clock_gettime 함수가 커널에 구현되어 내장되었는데, 그 이전 버전의 경우에는 sysctl을 통해 부트 타임을 가져온 뒤 gettimeofday() 함수를 이용해 현재 시간에서 빼는 방법으로 하드웨어 Uptime을 계산해야한다. gettimeofday()는 obsolescent 함수로 지정되었으므로 사용을 피하는 게 좋겠지만 iOS 9.0에서도 Monotonic Time을 활용하고자 한다면 지금 시점으로는 유일한 방법으로 보인다. 한 1~2년만 지나도 iOS9.0 지원 자체를 할 필요가 없어질 테니 뭐...  
+
+어쨌든, 이하는 스택오버플로우에서 찾은 코드이다. 출처는 하단에 있다.  
 
 #### iOS >= 10 구현
 
@@ -68,11 +70,18 @@ iOS는 iOS 10버전 이후와 이전의 구현 방법이 다소 다르다. iOS10
     }
     int64_t result;
     result = uptime.tv_nsec / 1000000;
-    result += uptime.tv_sec * 1000;
+    result += (int64_t)uptime.tv_sec * 1000;
     return result;
 }
 
 ~~~
+
+clock_gettime의 첫 인자로 CLOCK_MONOTONIC_RAW를 넘겨준다. MONOTONIC에는 CLOCK_MONOTONIC과 CLOCK_MONOTONIC_RAW 두 종류가 있는데, CLOCK_MONOTONIC은 NTP에 영향을 받으나 CLOCK_MONOTONIC_RAW는 영향을 받지 않는다. 시간이 앞뒤로 널뛰기하는걸 원하지 않으니 CLOCK_MONOTONIC_RAW를 쓴 것으로 보인다.
+
+> [What is Difference between CLOCK_MONOTONIC and CLOCK_MONOTONIC_RAW?](https://stackoverflow.com/questions/14270300/what-is-the-difference-between-clock-monotonic-clock-monotonic-raw)
+
+timespec 구조체를 받아 tv_nsec과 tv_sec을 millisecond로 변환하여 리턴하도록 구현을 조금 수정해 봤다.
+또한 변환 과정에서 오버플로우가 일어나지 않도록 int64_t 캐스팅을 하는 것도 잊지 말자.
 
 #### iOS < 10 구현
 
@@ -91,7 +100,7 @@ static int64_t ms_boot_timestamp() {
     return (int64_t)boottime.tv_sec * 1000 + (int64_t)(boottime.tv_usec / 1000);
 }
 
-+ (int64_t) ms_uptime_old {
++ (int64_t) ms_uptime {
     int64_t before_now;
     int64_t after_now;
     struct timeval now;
@@ -108,17 +117,163 @@ static int64_t ms_boot_timestamp() {
 
 ~~~
 
->[출처 : StackOverflow-Getting iOS system uptime that doesn't pause when asleep](https://stackoverflow.com/a/40497811)
+>[출처 : StackOverflow - Getting iOS system uptime that doesn't pause when asleep](https://stackoverflow.com/a/40497811)
 
-### Android (in-depth)
+출처에서 나와 있듯이, 구버전용 코드에서는 커널 변수를 바로 리턴받아버리면 NTP 싱크 또는 유저가 직접 시간을 변경하는 케이스에 Race Condition이 발생할 수 있다. 이를 막기 위해 do{}while 루프 안에서 시간 변경을 검사하도록 구현했다는듯.  
 
-- [안드로이드 elapsedRealtime 구현 코드](https://android.googlesource.com/platform/system/core/+/master/libutils/SystemClock.cpp#51)  
+### 확장 - iOS
 
-## Monotonic Time in iOS
+어쨌든 요점은 Monotonic Time 로직을 위해서는 clock_gettime 커널 함수가 핵심이라는 사실을 확인할 수 있다. clock_gettime의 구현 세부사항 자체는 OS와 커널 버전에 따라 다른데, 다행이도 Apple과 Android 모두 관련 코드를 오픈해두어 로직을 살펴볼 수 있다.  
+
+> 여기서부터는 개인적인 호기심에 Low-Level로 내려가 볼 수 있는만큼 내려가 봤습니다. Monotonic Time과 관련된 로직 자체는 위에서 모두 다루었으니 이해가 어려우면 넘기셔도 됩니다. 저도 어셈블리나 커널을 자세히 아는 건 아니라 적당히 제가 이해 가능한 범위에서 끊었으니 양해를...^^;
+
+clock_gettime 관련 로직은 구글 검색으로 간단히 애플의 오픈소스 포탈에서 관련 소스를 찾을 수 있었다.
+
+> [opensource.apple.com - clock_gettime.c](https://opensource.apple.com/source/Libc/Libc-1272.200.26/gen/clock_gettime.c.auto.html)
+
+clock_gettime 코드를 한번 뒤져보자.  
+
+~~~c
+
+int
+clock_gettime(clockid_t clk_id, struct timespec *tp)
+{
+    switch(clk_id){
+    case CLOCK_REALTIME: {
+        struct timeval tv;
+        int ret = gettimeofday(&tv, NULL);
+        TIMEVAL_TO_TIMESPEC(&tv, tp);
+        return ret;
+    }
+    case CLOCK_MONOTONIC: {
+        struct timeval tv;
+        uint64_t boottime_usec;
+        int ret = _mach_boottime_usec(&boottime_usec, &tv);
+        struct timeval boottime = {
+            .tv_sec = boottime_usec / USEC_PER_SEC,
+            .tv_usec = boottime_usec % USEC_PER_SEC
+        };
+        timersub(&tv, &boottime, &tv);
+        TIMEVAL_TO_TIMESPEC(&tv, tp);
+        return ret;
+    }
+    case CLOCK_PROCESS_CPUTIME_ID: {
+        struct rusage ru;
+        int ret = getrusage(RUSAGE_SELF, &ru);
+        timeradd(&ru.ru_utime, &ru.ru_stime, &ru.ru_utime);
+        TIMEVAL_TO_TIMESPEC(&ru.ru_utime, tp);
+        return ret;
+    }
+    case CLOCK_MONOTONIC_RAW:
+    case CLOCK_MONOTONIC_RAW_APPROX:
+    case CLOCK_UPTIME_RAW:
+    case CLOCK_UPTIME_RAW_APPROX:
+    case CLOCK_THREAD_CPUTIME_ID: {
+        uint64_t ns = clock_gettime_nsec_np(clk_id);
+        if (!ns) return -1;
+
+        tp->tv_sec = ns/NSEC_PER_SEC;
+        tp->tv_nsec = ns % NSEC_PER_SEC;
+        return 0;
+    }
+    default:
+        errno = EINVAL;
+        return -1;
+    }
+}
+
+~~~
+
+흥미롭게도 CLOCK_MONOTONIC은 _mach_boottime_usec 함수를 호출하며 이 함수 내에서는 gettimeofday()를 이용하는 것을 볼 수 있다. 심지어 Race Condition 방지를 위해 do{} while 문으로 감싸둔 것까지, 위에서 iOS < 10에서 구현한 로직과 거의 비슷함을 확인할 수 있다. (해당 로직도 NTP의 영향을 받는다.)
+
+CLOCK_MONOTONIC_RAW의 경우는 다음 clock_gettime_nsec_np() 콜에서 mach_continuous_time() 콜로 내려감을 확인할 수 있다. mach_continuous_time() 함수의 코드를 한번 보자.
+
+> [Apple mach_continuous_time.c](https://opensource.apple.com/source/xnu/xnu-4570.1.46/libsyscall/wrappers/mach_continuous_time.c.auto.html)
+
+~~~c
+
+uint64_t
+mach_continuous_time(void)
+{
+	uint64_t cont_time;
+	if (_mach_continuous_hwclock(&cont_time) != KERN_SUCCESS)
+		_mach_continuous_time(NULL, &cont_time);
+	return cont_time;
+}
+
+__attribute__((visibility("hidden")))
+kern_return_t
+_mach_continuous_hwclock(uint64_t *cont_time __unused)
+{
+#if defined(__arm64__)
+	uint8_t cont_hwclock = *((uint8_t*)_COMM_PAGE_CONT_HWCLOCK);
+	uint64_t timebase;
+	if (cont_hwclock) {
+		__asm__ volatile("isb\n" "mrs %0, CNTPCT_EL0" : "=r"(timebase));
+		*cont_time = timebase;
+		return KERN_SUCCESS;
+	}
+#endif
+	return KERN_NOT_SUPPORTED;
+}
+
+~~~
+
+arm64 CPU에서는 HWCLOCK 컨트롤을 받아 어셈블리 단에서 timebase 레지스터 값을 가져온다. 허나 arm64 CPU가 아닌 경우에는 mach_absolute_time 함수를 이용한다.
+
+>[Apple mach_absolute_time.c](https://opensource.apple.com/source/Libc/Libc-167/mach.subproj/mach_absolute_time.c.auto.html)
+
+Power PC의 어셈블리라면 time base 레지스터를 가져오고 그 외에는 clock_get_time 시스템 콜을 호출한다. 어셈블리 프로그래머가 아니다보니 Time base 레지스터의 존재에 대해서 몰랐는데 새롭게 하나 배운 기분이다.  
+
+clock_get_time 함수까지는 오픈된 소스를 찾지 못했다만 어쨌든 요점은 비슷할 것이다.
+
+>하드웨어 부트 이후 Uptime을 clock_gettime 함수에서 요청하면, Time Base 레지스터에서 값을 받아 리턴한다.
+
+### 확장 - Android
+
+안드로이드 역시 소스 코드가 오픈되어 있으며 [SystemClock.java](https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/SystemClock.java) 파일을 살펴보면 elapsedRealtime() 함수가 native로 연결되는 을 볼 수 있다.  
+
+[SystemClock.cpp](https://android.googlesource.com/platform/system/core/+/master/libutils/SystemClock.cpp#51) 파일의 내용물을 살펴보면 다음과 같다.
+
+~~~cpp
+
+/*
+ * native public static long elapsedRealtime();
+ */
+int64_t elapsedRealtime()
+{
+	return nanoseconds_to_milliseconds(elapsedRealtimeNano());
+}
+/*
+ * native public static long elapsedRealtimeNano();
+ */
+int64_t elapsedRealtimeNano()
+{
+#if defined(__linux__)
+    struct timespec ts;
+    int err = clock_gettime(CLOCK_BOOTTIME, &ts);
+    if (CC_UNLIKELY(err)) {
+        // This should never happen, but just in case ...
+        ALOGE("clock_gettime(CLOCK_BOOTTIME) failed: %s", strerror(errno));
+        return 0;
+    }
+    return seconds_to_nanoseconds(ts.tv_sec) + ts.tv_nsec;
+#else
+    return systemTime(SYSTEM_TIME_MONOTONIC);
+#endif
+}
+
+~~~
+
+elapsedRealtimeNano 함수를 살펴보면 이제 친숙한 clock_gettime 함수가 보인다. 다만 iOS와 다른 점은 clock id로 CLOCK_BOOTTIME을 쓴다는 점인데, 안드로이드의 경우 CLOCK_MONOTONIC 관련 변수는 suspend 상태에서 카운트가 되지 않아 그렇다고 한다.  
+
+> 참고로 iOS의 경우는 터미널에서 man clock_gettime 을 입력하여 확인해 보면, CLOCK_MONOTONIC 관련 변수는 asleep 상태에서도 카운트가 된다고 적혀 있다.
+
+<br/>
 
 
-
-#참고자료
+# 참고자료
 
 - [Getting iOS system uptime, that doesn't pause when asleep](https://stackoverflow.com/questions/12488481/getting-ios-system-uptime-that-doesnt-pause-when-asleep/40497811)
 - [clock_gettime alternative in Mac OS X](https://stackoverflow.com/questions/5167269/clock-gettime-alternative-in-mac-os-x)
+- [Apple clock_gettime.c](https://opensource.apple.com/source/Libc/Libc-1158.1.2/gen/clock_gettime.c.auto.html)
