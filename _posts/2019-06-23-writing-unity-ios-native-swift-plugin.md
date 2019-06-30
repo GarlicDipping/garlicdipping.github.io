@@ -5,7 +5,7 @@ date:   2019-06-23 20:00:00
 author: GarlicDipping
 tags:
 - Programming, iOS, Unity3d
-categories: Unity3d
+categories: Unity3d, Programming
 ---
 
 현재 개발중인 게임의 개발 마무리 단계가 다가오면서, 미뤄뒀던 구현 사항들을 슬슬 하나둘씩 매듭지어야 하는 시기가 왔다.
