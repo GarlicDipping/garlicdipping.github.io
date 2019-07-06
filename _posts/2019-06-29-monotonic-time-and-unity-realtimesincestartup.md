@@ -132,7 +132,7 @@ static int64_t ms_boot_timestamp() {
 
 ~~~
 
-do{} while 루프 내부에서는 gettimeofday() 함수 호출 전후로 ms_boottime_stamp가 변경되었는지 여부를 검사한다. 부트 타임을 받은 뒤 gettimeofday() 리턴을 받기 전 NTP싱크 또는 유저의 시간 변경이 적용되어버리면 Race Condition이 발생하기 때문이다. ***sysctl을 통해 리턴받은 KERN_BOOTTIME 값은 디바이스 시간 변경에 영향을 받으므로 이러한 체크가 반드시 필요하다.***  
+do{} while 루프 내부에서는 gettimeofday() 함수 호출 전후로 ms_boot_timestamp가 변경되었는지 여부를 검사한다. 부트 타임을 받은 뒤 gettimeofday() 리턴을 받기 전 NTP싱크 또는 유저의 시간 변경이 적용되어버리면 Race Condition이 발생하기 때문이다. ***sysctl을 통해 리턴받은 KERN_BOOTTIME 값은 디바이스 시간 변경에 영향을 받으므로 이러한 체크가 반드시 필요하다.***  
 
 ### 확장 - 커널 소스 분석
 
