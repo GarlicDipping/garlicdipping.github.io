@@ -589,6 +589,10 @@ timeskeeper 구조체 주석에 의하면 CLOCK_MONOTONIC의 경우 tkr_mono를,
 - 안드로이드는 SystemClock.elapsedRealtime() 함수를 통해 화면이 꺼진 상태에서도 디바이스 부팅 이후 지난 시간을 카운트할 수 있다. 공식 문서에서도 권장하는 함수이므로 잘 활용하자.
 - iOS는 부팅 이후 시간을 카운트하기 위해서는 커널 함수를 호출해야 한다. ios >= 10 환경에서는 clock_gettime(CLOCK_MONOTONIC) 또는 clock_gettime(CLOCK_MONOTONIC_RAW) 등을 이용해 값을 얻을 수 있다.
   - 단, 편의상 '부팅 이후 시간'이라고 했지만 공식 문서에서는 arbitary point 이후의 값을 리턴한다고 되어있음에 주의하자. 상대 시간이 필요하다면 별 문제는 아니다.
+- iOS에서 CLOCK_MONOTONIC_RAW를 이용해 Elapsed Time을 측정하는 경우 NTP 싱크의 영향을 받지 않으므로 시간이 튀지 않는다.
+- iOS에서 CLOCK_MONOTONIC을 이용해 Elapsed Time을 측정하는 경우, 그리고 안드로이드의 SystemClock.elapsedRealtime() 호출의 경우에는 NTP 싱크의 영향을 받아 가끔 시간이 튈 수 있다.
+  - 하지만 어지간하면 몇 ns, ms의 범위를 벗어나지 않으니 대부분의 경우에는 이걸로 충분하다. 시간이 디싱크되는 현상이 걱정된다면 주기적으로 자체 서버와 시간을 동기화하도록 구현하자.
+  - 하지만 **프로파일링이 목적이라면 CLOCK_MONOTONIC_RAW를 이용하자.** [관련 레딧 포스트에서 이에 관한 이야기가 적혀 있다.](https://www.reddit.com/r/programming/comments/y3mxv/clock_monotonic_avoiding_problems_with_leap/c5shfkg?utm_source=share&utm_medium=web2x) 요약하면 짧은 시간 간격을 측정하고 상대 비교하는게 중요할 때(프로파일링 등)는 작고 꾸준한 에러가 있는게 차라리 한번씩 큰 에러가 일어나는 것보다 낫다는 이야기.
 
 호기심에 어디까지 내려가볼 수 있나 한번 살펴봤는데 커널 코드까지 다운받아서 뒤져보게 될 줄은 몰랐다... 개인 시간이 약간 남아서 가능했지 아니었으면 적당히 중간에 그만뒀을듯. 뭐 그래도 간만에 학교 과제 하는 느낌 나서 재미있었다.  
 
