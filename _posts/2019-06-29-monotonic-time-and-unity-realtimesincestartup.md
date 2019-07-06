@@ -366,7 +366,9 @@ _mach_continuous_time(uint64_t* absolute_time, uint64_t* cont_time)
 
 ~~~
 
-복잡해 보이지만, 잘 살펴보면 여기서도 iOS < 10에서 구현되었던 로직 흐름이 그대로 존재함을 확인할 수 있다.  gettimeofday() 역할은 mach_absolute_time() 함수가, BootTime 역할은 _COMM_PAGE_CONT_TIMEBASE 변수가 수행하고 있다. 문서화가 제대로 되어있지 않으나 검색을 해 보면 mach_absolute_time 함수는 부트타임 후 Tick을 리턴하는 역할로 보인다. iOS에서 clock_gettime 로직 구현의 세부사항은 사실상 거의 다 살펴보았으나 기왕 여기까지 온 거 mach_absolute_time도 한번 까보자.
+복잡해 보이지만, 잘 살펴보면 여기서도 iOS < 10에서 구현되었던 로직 흐름이 그대로 존재함을 확인할 수 있다.  gettimeofday() 역할은 mach_absolute_time() 함수가, BootTime 역할은 _COMM_PAGE_CONT_TIMEBASE 변수가 수행하고 있다. 문서화가 제대로 되어있지 않으나 검색을 해 보면 mach_absolute_time 함수는 부트타임 후 Tick을 리턴하는 역할로 보인다.  
+
+iOS에서 clock_gettime 로직 구현의 세부사항은 사실상 거의 다 살펴보았으나 기왕 여기까지 온 거 mach_absolute_time도 한번 까보자.
 
 >[Apple mach_absolute_time.c](https://opensource.apple.com/source/Libc/Libc-167/mach.subproj/mach_absolute_time.c.auto.html)
 
