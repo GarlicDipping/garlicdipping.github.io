@@ -43,6 +43,10 @@ plugins:
 paginate: 5
 paginate_path: "page:num"
 
+# multilang
+languages: ['ko']
+default_lang: 'ko'
+
 highlighter: rouge
 markdown: kramdown
 
