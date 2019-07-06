@@ -590,7 +590,7 @@ timeskeeper 구조체 주석에 의하면 CLOCK_MONOTONIC의 경우 tkr_mono를,
 
 호기심에 어디까지 내려가볼 수 있나 한번 살펴봤는데 커널 코드까지 다운받아서 뒤져보게 될 줄은 몰랐다... 개인 시간이 약간 남아서 가능했지 아니었으면 적당히 중간에 그만뒀을듯. 뭐 그래도 간만에 학교 과제 하는 느낌 나서 재미있었다.  
 
-생각했던 이상으로 컴퓨터의 시간과 관련된 로직은 복잡하다. 인생을 쉽게 살 수 있도록 뒤에서 열심히 일하신 커널 개발자들에게 항상 감사하자.
+생각했던 이상으로 컴퓨터의 시간과 관련된 로직은 복잡하다. 인생을 쉽게 살 수 있도록 뒤에서 열심히 일하신 커널 개발자분들에게 항상 감사하자.
 
 <br/>
 
@@ -601,3 +601,4 @@ timeskeeper 구조체 주석에 의하면 CLOCK_MONOTONIC의 경우 tkr_mono를,
 - [clock_gettime alternative in Mac OS X](https://stackoverflow.com/questions/5167269/clock-gettime-alternative-in-mac-os-x)
 - [Apple opensource portal](https://opensource.apple.com/)
 - [bootlin](https://elixir.bootlin.com/)
+- [Linux 4.4.111 Release](https://www.fclose.com/linux-kernels/3247/linux-4-4-111/)
