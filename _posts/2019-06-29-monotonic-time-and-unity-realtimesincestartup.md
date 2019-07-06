@@ -441,7 +441,7 @@ int64_t elapsedRealtimeNano()
 
 elapsedRealtimeNano 함수를 살펴보면 이제 친숙한 clock_gettime 함수가 보인다. 다만 iOS와 다른 점은 clock id로 CLOCK_BOOTTIME을 쓴다는 점인데, 안드로이드의 경우 CLOCK_MONOTONIC 관련 변수는 suspend 상태에서 카운트가 되지 않아 그렇다고 한다.(즉 여기서 유니티의 realtimeSinceStartup은 clock_gettime에서 clockid로 CLOCK_BOOTTIME 이외의 값을 넘기는 것이 아닌가 추측해 볼 수 있다...)  
 
-안드로이드는 Linux Kernel 베이스이므로 적당한 리눅스 버전을 골라 코드를 살펴볼 수 있다. 갤럭시 S8에서 커널 버전을 보니 4.4.111이므로 해당 커널 코드를 다운받아 살펴봤다.
+안드로이드는 Linux Kernel 베이스이므로 적당한 리눅스 버전을 골라 코드를 살펴볼 수 있다. 갤럭시 S8에서 커널 버전을 보니 4.4.111이므로 [해당 커널 코드를 다운받아](https://www.fclose.com/linux-kernels/3247/linux-4-4-111/) 살펴봤다.
 
 일반적으로 Linux Kernel에서는 kernel/time/posix-timers.c에 POSIX 규격 타이머 관련 시스템 콜이 모여있다. 여기서 clock_gettime을 살펴보기 전에, k_clock 구조체에 대해 알아야 한다.
 
