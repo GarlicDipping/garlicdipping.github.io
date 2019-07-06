@@ -397,6 +397,8 @@ uint64_t mach_absolute_time(void) {
 
 Power PC의 어셈블리 명령어가 보인다. 어셈블리 언어 부분이 복잡해 보이지만 결국 핵심은 mftbu 및 mftb 호출이다. 요약하자면 time base 레지스터에서 값을 가져와 64비트 공간에 저장 후 리턴한다. 어셈블리 프로그래머가 아니다보니 Time base 레지스터의 존재에 대해서 몰랐는데 새롭게 하나 배운 기분이다.  
 
+> [참고자료 : PowerPC Elapsed Time](https://inteng.fnal.gov/Integrated_Eng/GoodwinDocs/pdf/Sys%20docs/PowerPC/PowerPC%20Elapsed%20Time.pdf)
+
 그 외에는 clock_get_time 시스템 콜을 호출한다. clock_get_time 함수까지는 오픈된 소스를 찾지 못했다만 어쨌든 지금까지의 흐름으로 미루어보건데 비슷하게 하드웨어 틱을 가져와 리턴하는 함수일 것이다.
 
 함수를 주욱 따라 내려오느라 말이 길어졌지만 요약하면 다음과 같다.
