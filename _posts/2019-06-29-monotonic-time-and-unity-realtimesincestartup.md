@@ -140,7 +140,7 @@ static int64_t ms_boot_timestamp() {
 
 #### iOS
 
-어쨌든 요점은 Monotonic Time 로직을 위해서는 clock_gettime 커널 함수가 핵심이라는 사실을 확인할 수 있다. clock_gettime의 구현 세부사항 자체는 OS와 커널 버전에 따라 다른데, 다행이도 Apple과 Android 모두 관련 코드를 오픈해두어 로직을 살펴볼 수 있다.  
+어쨌든 요점은 Monotonic Time 로직을 위해서는 clock_gettime 커널 함수를 쓰면 된다는 것이다. clock_gettime의 구현 세부사항 자체는 OS와 커널 버전에 따라 다른데, 다행이도 Apple과 Android 모두 관련 코드를 오픈해두어 로직을 살펴볼 수 있다.  
 
 > 여기서부터는 개인적인 호기심에 Low-Level로 내려가 볼 수 있는만큼 내려가 봤습니다. Monotonic Time과 관련된 로직 자체는 위에서 모두 다루었으니 이해가 어려우면 넘기셔도 됩니다. 저도 어셈블리나 커널을 자세히 아는 건 아니라 적당히 제가 이해 가능한 범위에서 끊었으니 양해를...^^;
 
