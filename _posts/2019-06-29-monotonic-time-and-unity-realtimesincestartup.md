@@ -134,7 +134,7 @@ static int64_t ms_boot_timestamp() {
 
 >[출처 : StackOverflow - Getting iOS system uptime that doesn't pause when asleep](https://stackoverflow.com/a/40497811)
 
-출처에서 나와 있듯이, 부트 타임을 받은 뒤 gettimeofday() 리턴을 받기 전 NTP싱크 또는 유저의 시간 변경이 적용되어버리면 Race Condition이 발생한다. ***sysctl을 통한 KERN_BOOTTIME 변수 리턴값은 디바이스 시간 변경에 영향을 받기 때문이다.*** 이를 막기 위해 do{}while 루프 안에서 gettimeofday() 함수 호출 전후에 시간 변경 여부를 검사하도록 구현되어 있음을 확인할 수 있다. 
+출처에서 나와 있듯이, 부트 타임을 받은 뒤 gettimeofday() 리턴을 받기 전 NTP싱크 또는 유저의 시간 변경이 적용되어버리면 Race Condition이 발생한다. ***sysctl을 통해 리턴받은 KERN_BOOTTIME 값은 디바이스 시간 변경에 영향을 받기 때문이다.*** 이를 막기 위해 do{}while 루프 안에서 gettimeofday() 함수 호출 전후에 시간 변경 여부를 검사하도록 구현되어 있음을 확인할 수 있다. 
 
 ### 확장
 
