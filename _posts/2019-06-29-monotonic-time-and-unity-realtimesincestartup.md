@@ -201,7 +201,36 @@ clock_gettime(clockid_t clk_id, struct timespec *tp)
 
 ~~~
 
-우리에게 관심이 있는 파라미터는 CLOCK_MONOTONIC 및 CLOCK_MONOTONIC_RAW 두 가지이다. 흥미롭게도 CLOCK_MONOTONIC은 _mach_boottime_usec 함수를 호출하며 이 함수 내에서는 gettimeofday()를 이용하는 것을 볼 수 있다. 심지어 Race Condition 방지를 위해 do{} while 문으로 감싸둔 것까지, 위에서 iOS < 10에서 구현한 로직과 거의 비슷함을 확인할 수 있다. (즉 더 위에서 다루었던 iOS < 10의 Uptime 로직은 NTP 타임 싱크의 영향을 받아 시간이 널뛸수도 있다는 이야기다!)
+우리에게 관심이 있는 파라미터는 CLOCK_MONOTONIC 및 CLOCK_MONOTONIC_RAW 두 가지이다. CLOCK_MONOTONIC 케이스에 걸리면 _mach_boottime_usec 함수를 호출하는데, 내용물을 살펴보자.
+
+~~~c
+
+static int
+_mach_boottime_usec(uint64_t *boottime, struct timeval *realtime)
+{
+    uint64_t bt1 = 0, bt2 = 0;
+    int ret;
+    do {
+        bt1 = mach_boottime_usec();
+        if (os_slowpath(bt1 == 0)) bt1 = _boottime_fallback_usec();
+
+        atomic_thread_fence(memory_order_seq_cst);
+
+        ret = gettimeofday(realtime, NULL);
+        if (ret != 0) return ret;
+
+        atomic_thread_fence(memory_order_seq_cst);
+
+        bt2 = mach_boottime_usec();
+        if (os_slowpath(bt2 == 0)) bt2 = _boottime_fallback_usec();
+    } while (os_slowpath(bt1 != bt2));
+    *boottime = bt1;
+    return 0;
+}
+
+~~~
+
+_mach_boottime_usec에서는 현재 시간을 받기 위해 gettimeofday()를 이용하는 것을 볼 수 있다. 잘 보면 iOS < 10 구현 흐름과 거의 비슷함을 알 수 있는데, mach_boottime_usec은 이름대로 디바이스 부트 시간의 timestamp 역할일 것이며, Race Condition 방지를 위해 do{} while 문으로 감싸둔 것까지 동일하다.  
 
 CLOCK_MONOTONIC_RAW의 경우는 clock_gettime_nsec_np() 함수로 넘어간다.
 
