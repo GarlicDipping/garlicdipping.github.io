@@ -19,6 +19,8 @@ published: true
 
 없으면 만드는 법, 앱이 백그라운드로 내려가더라도 정상적인 Elapsed Time을 받아올 수 있도록 네이티브 코드를 짜기 위해 Time에 대해 이런저런 조사를 하며 알게 된 부분들을 적어둔다.
 
+<!--more-->
+
 # Monotonic Time
 
 운영 체제에서 시간은 하드웨어의 상황에 영향을 받는다. High Level단에서 시간 관련 함수(C#이라면 DateTime.UTCNow 등)에 액세스할 경우, 가끔씩 미묘하게 시간이 어긋나는 현상이 발생하기도 하는데 이는 DateTime.UTCNow 등의 시간 관련 함수들이 컴퓨터에 내장된 [Real-Time Clock(RTC)](https://ko.wikipedia.org/wiki/%EC%8B%A4%EC%8B%9C%EA%B0%84_%EC%8B%9C%EA%B3%84)을 사용하기 때문이다.  
