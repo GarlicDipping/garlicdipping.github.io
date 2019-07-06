@@ -201,7 +201,7 @@ clock_gettime(clockid_t clk_id, struct timespec *tp)
 
 ~~~
 
-우리에게 관심이 있는 파라미터는 CLOCK_MONOTONIC 및 CLOCK_MONOTONIC_RAW 두 가지이다. CLOCK_MONOTONIC 케이스에 걸리면 _mach_boottime_usec 함수를 호출하는데, 내용물을 살펴보자.
+우리가 관심있는 파라미터는 CLOCK_MONOTONIC 및 CLOCK_MONOTONIC_RAW 두 가지이다. CLOCK_MONOTONIC 케이스에 걸리면 _mach_boottime_usec 함수를 호출하는데, 내용물을 살펴보자.
 
 ~~~c
 
