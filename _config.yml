@@ -4,7 +4,7 @@ url: "http://garlicdipping.github.io"    # the protocol and hostname of your sit
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
 timezone: Asia/Seoul
 description: >
-  팀 타파스 개발자 김민수(갈릭디핑)의 기술 관련 블로그입니다.
+  팀 타파스 개발자, 김민수(갈릭디핑)의 기술 관련 블로그입니다.
 
 # Your information
 email: garlicdipping@gmail.com
@@ -37,6 +37,7 @@ plugins:
  - jekyll-gist
  - jemoji
  - jekyll-sitemap
+ - jekyll-seo-tag
 
 # Build settings
 paginate: 5
