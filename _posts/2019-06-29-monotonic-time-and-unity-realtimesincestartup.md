@@ -399,9 +399,9 @@ Power PC의 어셈블리 명령어가 보인다. 어셈블리 언어 부분이 �
 
 그 외에는 clock_get_time 시스템 콜을 호출한다. clock_get_time 함수까지는 오픈된 소스를 찾지 못했다만 어쨌든 지금까지의 흐름으로 미루어보건데 비슷하게 하드웨어 틱을 가져와 리턴하는 함수일 것이다.
 
-함수를 주욱 따라 내려오느라 말이 길어졌지만 요약하면 다음과 같을 것이다.
+함수를 주욱 따라 내려오느라 말이 길어졌지만 요약하면 다음과 같다.
 
->하드웨어 부트 이후 Uptime을 clock_gettime 함수에서 요청하면, Time Base 레지스터(또는 비슷한 역할을 하는 하드웨어 장치)에서 값을 받아 리턴한다.
+>하드웨어 부트 이후 Uptime을 clock_gettime 함수에서 요청하면, CLOCK_MONOTONIC의 경우 gettimeofday()를 활용하고, CLOCK_MONOTONIC_RAW는 Time Base 레지스터(또는 비슷한 역할을 하는 하드웨어 장치)에서 값을 받아 리턴한다.
 
 #### Android
 
