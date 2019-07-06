@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 유니티 realtimeSinceStartup 대체하기 : 모바일 환경에서의 Monotonic Time 분석
+title: 유니티 realtimeSinceStartup 대체하기 - 모바일 환경에서의 Monotonic Time 분석
 date:   2019-07-06 20:00:00
 author: GarlicDipping
 tags:
