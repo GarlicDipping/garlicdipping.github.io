@@ -199,15 +199,15 @@ function SelectAllize(selector, tips) {
         setTimeout(hide, 1000);
     }
 
-    function dblClickHandler(e) {
+    /*function dblClickHandler(e) {
         selection.selectAllChildren(this);
         hide();
-    }
+    }*/
 
     for (var i = obj.length; i--;) {
         var oi = obj[i];
         oi.addEventListener('click', clickHandler, false);
-        oi.addEventListener('dblclick', dblClickHandler, false);
+        //oi.addEventListener('dblclick', dblClickHandler, false);
     }
 
     return true;
@@ -221,7 +221,7 @@ function RealLoad() {
     );
 
     PalmSidebar();
-    SelectAllize("pre.highlight", "Dblclick to select all");
+    //SelectAllize("pre.highlight", "Dblclick to select all");
 
     var imgs = document.querySelectorAll('.post-content > p > img');
     for (var i = imgs.length; i--;) {
