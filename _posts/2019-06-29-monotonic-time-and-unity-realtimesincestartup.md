@@ -439,7 +439,7 @@ int64_t elapsedRealtimeNano()
 
 ~~~
 
-elapsedRealtimeNano 함수를 살펴보면 이제 친숙한 clock_gettime 함수가 보인다. 다만 iOS와 다른 점은 clock id로 CLOCK_BOOTTIME을 쓴다는 점인데, 안드로이드의 경우 CLOCK_MONOTONIC 관련 변수는 suspend 상태에서 카운트가 되지 않아 그렇다고 한다.  
+elapsedRealtimeNano 함수를 살펴보면 이제 친숙한 clock_gettime 함수가 보인다. 다만 iOS와 다른 점은 clock id로 CLOCK_BOOTTIME을 쓴다는 점인데, 안드로이드의 경우 CLOCK_MONOTONIC 관련 변수는 suspend 상태에서 카운트가 되지 않아 그렇다고 한다.(즉 여기서 유니티의 realtimeSinceStartup은 clock_gettime에서 clockid로 CLOCK_BOOTTIME 이외의 값을 넘기는 것이 아닌가 추측해 볼 수 있다...)  
 
 안드로이드는 Linux Kernel 베이스이므로 적당한 리눅스 버전을 골라 코드를 살펴볼 수 있다. 갤럭시 S8에서 커널 버전을 보니 4.4.111이므로 해당 커널 코드를 다운받아 살펴봤다.
 
