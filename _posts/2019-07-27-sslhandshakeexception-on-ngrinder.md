@@ -1,3 +1,13 @@
+---
+layout: post
+title: nGrinder SSLHandshakeException 에러 해결하기
+date:   2019-07-27 16:30:00
+author: GarlicDipping
+tags:
+- Programming, nGrinder
+categories: Programming
+---
+
 # 서론
 
 로드 테스트 용도로 nGrinder를 유용하게 쓰고 있던 중, 얼마 전 AWS의 Cloudfront를 붙이면서 SSLHandshakeException 문제가 발생했다.
@@ -74,7 +84,7 @@ http.get([path: "/about"]) { resp, reader ->
 
 ### Post
 
-https://garlicdipping.github.io/post 라는 페이지에 파라미터를 넣어 Post 요청을 보내고자 한다면 Post Form을 Map 자료구조에 넣어 전달해야 한다. 이 예제에서는 form data 필드에 
+https://garlicdipping.github.io/posttest 라는 페이지에 파라미터를 넣어 Post 요청을 보내고자 한다면 Post Form을 Map 자료구조에 넣어 전달해야 한다. 이 예제에서는 form data 필드에 
 - name: Minsoo Kim
 - data: This is a test!
 
@@ -88,7 +98,7 @@ import static groovyx.net.http.ContentType.URLENC
 
 def formDatas = ['name' : 'Minsoo Kim', 'data' : 'This is a test!']
 HTTPBuilder http = new HTTPBuilder("https://garlicdipping.github.io/");
-http.post([path: path, body: formDatas, requestContentType: URLENC]) { resp, reader ->
+http.post([path: '/posttest', body: formDatas, requestContentType: URLENC]) { resp, reader ->
     int statusCode = resp.statusLine.statusCode
     String content = reader.text()
     //Implementation!
@@ -101,7 +111,7 @@ http.post([path: path, body: formDatas, requestContentType: URLENC]) { resp, rea
 
 HTTPBuilder를 통한 Get 또는 Post 요청에 대한 로직을 래핑해 statusCode와 content string을 묶은 데이터 클래스를 리턴하도록 만들어 두면 요긴하게 쓰인다.
 
-그리 복잡한 로직도 아니니 래핑한 로직까지 포함해 이곳에 올려둔다.
+그리 복잡한 로직도 아니니, 래핑한 로직까지 포함해 이곳에 올려둔다.
 
 ~~~groovy
 
@@ -164,10 +174,18 @@ class GarlicHTTP {
 
 ~~~
 
-위 클래스들은 다음과 같이 이용하면 된다.
+다음과 같이 이용하면 된다.
 
 ~~~groovy
 
-
+@Test
+public void test(){
+    //예제 용도로 적어둔 헤더
+    def headers = ['Content-Type': 'text/html; charset=UTF-8',
+        'Connection': 'Keep-Alive']
+    GarlicHTTP http = new GarlicHTTP("https://garlicdipping.github.io/", headers)
+    http.get('/about')
+}
 
 ~~~
+
