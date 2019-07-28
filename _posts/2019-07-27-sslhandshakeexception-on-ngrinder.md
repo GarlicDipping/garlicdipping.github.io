@@ -68,7 +68,7 @@ pom.xml에서 \<dependencies> 노드 안에 http-builder 및 groovy-backports-co
 
 https://garlicdipping.github.io/about 페이지에 Get 요청을 보내고자 한다면 base_url은 https://garlicdipping.github.io/ 이며, path는 /about 이다.
 
-코드로 표현하면 다음과 같다.
+코드로는 다음과 같이 구현할 수 있다.
 
 ~~~groovy
 
@@ -88,7 +88,7 @@ https://garlicdipping.github.io/posttest 라는 페이지에 파라미터를 넣
 - name: Minsoo Kim
 - data: This is a test!
 
-라는 데이터를 전달한다고 가정하자. 코드로 표현하면 다음과 같다.
+라는 데이터를 전달한다고 가정하자. 구현은 다음과 같다.
 
 ~~~groovy
 
@@ -109,13 +109,11 @@ http.post([path: '/posttest', body: formDatas, requestContentType: URLENC]) { re
 
 ### Wrapping
 
-HTTPBuilder를 통한 Get 또는 Post 요청에 대한 로직을 래핑해 statusCode와 content string을 묶은 데이터 클래스를 리턴하도록 만들어 두면 요긴하게 쓰인다.
-
-그리 복잡한 로직도 아니니, 래핑한 로직까지 포함해 이곳에 올려둔다.
+HTTPBuilder를 통한 Get 또는 Post 요청에 대한 로직을 래핑해 statusCode와 content string을 묶은 데이터 클래스를 리턴하도록 만들어 이용했다. 코드가 짧은 편이므로  이곳에 올려둔다.
 
 ~~~groovy
 
-package com.garlic.test.utils
+package com.garlic.utils
 //Status Code와 body를 래핑한 데이터 클래스
 class GarlicHTTPResponse {
     public int statusCode
@@ -136,7 +134,7 @@ class GarlicHTTPResponse {
 
 ~~~groovy
 
-import com.garlic.test.utils.GarlicHTTPResponse
+import com.garlic.utils.GarlicHTTPResponse
 import groovyx.net.http.HTTPBuilder
 import groovy.util.slurpersupport.*
 import static groovyx.net.http.ContentType.URLENC
@@ -184,7 +182,7 @@ public void test(){
     def headers = ['Content-Type': 'text/html; charset=UTF-8',
         'Connection': 'Keep-Alive']
     GarlicHTTP http = new GarlicHTTP("https://garlicdipping.github.io/", headers)
-    http.get('/about')
+    GarlicHTTPResponse response = http.get('/about')
 }
 
 ~~~
