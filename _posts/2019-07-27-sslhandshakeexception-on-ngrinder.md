@@ -1,6 +1,6 @@
 ---
 layout: post
-title: nGrinder SSLHandshakeException 에러 해결하기
+title: nGrinder SSLHandshakeException 에러 대응하기
 date:   2019-07-27 16:30:00
 author: GarlicDipping
 tags:
