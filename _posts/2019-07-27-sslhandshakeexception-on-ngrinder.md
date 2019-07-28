@@ -14,15 +14,15 @@ categories: Programming
 
 Cloudfront에서 https 옵션을 사용할 경우 기본적으로 TLSv1.2를 지원하는데 ngrinder의 HTTPClient 코드는 이를 지원하지 않아 발생하는 것으로 보인다.
 
-nGrinder 공식 문서나 각종 예제에서 이용하는 HTTPRequest (`net.grinder.plugin.http.HTTPRequest`) 클래스 대신 아파치 HttpClient를 래핑한 groovy 플러그인인 [http-builder](https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder)를 이용하면 급한 불은 끌 수 있다.
+nGrinder 공식 문서나 각종 예제에서 이용하는 HTTPRequest (`net.grinder.plugin.http.HTTPRequest`) 클래스 대신 아파치 HttpClient를 래핑한 groovy 플러그인인 [http-builder](https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder)를 이용하면 급한 불은 끌 수 있다. 보다 근본적으로는 nGrinder의 HTTPRequest 클래스 코드를 고치는 것이 최선이겠지만, 아파치의 HTTPBuilder 관련 클래스를 이참에 사용해 보는 것도 나쁘지 않을 것이다.
 
 <!--more-->
 
 ## Maven Project 설정하기
 
-해당 플러그인을 이용하기 위해서는 nGrinder에서 몇 가지 설정을 미리 해 두어야 한다.
+http-builder 플러그인을 이용하기 위해서는 nGrinder에서 몇 가지 설정을 미리 해 두어야 한다.
 
-1. nGrinder 컨트롤러에서 Groovy Maven Project를 생성
+1. nGrinder 컨트롤러 웹페이지에서 Groovy Maven Project를 생성
 2. 이클립스에서 File-Import-Maven/Check out Maven Projects from SCM-URL 입력 후 체크아웃 
 3. 자동생성되어 있는 TestRunner.groovy 한번 돌리면 안내하는 에러 메세지를 확인 
     - javaagent argument를 입력하라는 메세지를 확인했다면 OK
@@ -52,9 +52,9 @@ pom.xml에서 \<dependencies> 노드 안에 http-builder 및 groovy-backports-co
 </dependencies>
 ~~~
 
-backports-compat23은 nGrinder가 사용하는 그루비 2.2.1 버전에서 ShortTypeHandling 클래스가 없어서 추가해주어야 한다.
+> backports-compat23은 nGrinder가 사용하는 그루비 2.2.1 버전에서 ShortTypeHandling 클래스가 없어서 추가해주어야 한다.
 
-이제 프로젝트를 우클릭해 Maven/Update Project를 한번 클릭해 pom.xml파일 변경사항을 프로젝트에 반영하자. Maven Dependencies 리스트 안에 groovy-backports-compat23-2.4.5.jar과 http-builder-0.7.jar 등이 포함되었으면 성공이다. (apache httpclient 관련 라이브러리 기반이므로 해당 라이브러리 jar파일들도 추가되어 있을 것이다.)
+이제 이클립스 프로젝트 뷰에서 원하는 프로젝트를 우클릭해 Maven/Update Project를 수행해 주자. pom.xml파일 변경사항이 프로젝트에 반영될 것이다. Maven Dependencies 리스트 안에 groovy-backports-compat23-2.4.5.jar과 http-builder-0.7.jar 등이 포함되었으면 성공이다. (apache httpclient 관련 라이브러리 기반이므로 해당 라이브러리 jar파일들도 추가되어 있을 것이다.)
 
 라이브러리 추가를 마쳤다면 테스트 스크립트 파일에서 `import groovyx.net.http.HTTPBuilder` 를 입력해 보자. 오류 없이 import가 이루어진다면 작업 준비가 완료되었다.
 
