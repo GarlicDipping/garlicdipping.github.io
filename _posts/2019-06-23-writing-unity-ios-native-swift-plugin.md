@@ -12,7 +12,9 @@ categories: Unity3d, Programming
 
 그 중 하나가 공지사항을 띄우기 위한 용도로 이용할 웹뷰였다. 이런저런 유니티 웹뷰 플러그인들이 있지만 아마 [gree에서 공개한 gree-webview](https://github.com/gree/unity-webview)가 가장 널리 쓰이는 물건이 아닐까 싶은데, 솔직히 말하자면 단순 공지 웹페이지 Get 용도로만 사용할 플러그인으로서는 기능이 지나치게 많고 무거웠다.  
 
-프로그래밍을 배운 뒤 처음으로 프로젝트를 제작했던 플랫폼이 안드로이드였기도 했고, 트위터 로그인 연동을 위해 얼마 전 iOS용 [Swifter](https://github.com/mattdonnelly/Swifter) 프로젝트를 유니티로 연결했던 경험도 있었다 보니 웹뷰 플러그인을 직접 만들기로 결정했다. (레이아웃 만들어서 웹뷰로 꽉 채워버리면 땡이라 제작에 그리 오래 걸리지도 않았다.)  
+프로그래밍을 배운 뒤 처음으로 프로젝트를 제작했던 플랫폼이 안드로이드였기도 했고, 트위터 로그인 연동을 위해 얼마 전 iOS용 [Swifter](https://github.com/mattdonnelly/Swifter) 프로젝트를 유니티로 연결했던 경험도 있었다 보니 웹뷰 플러그인을 직접 만들기로 결정했다. (레이아웃 만들어서 웹뷰로 꽉 채워버리면 땡이라 제작에 그리 오래 걸리지도 않았다.)
+
+> 해당 플러그인은 [GarlicWebview-Unity](https://github.com/GarlicDipping/GarlicWebview-Unity) 라는 이름으로 깃허브에 올려두었습니다. 관심 있으시면 한번 확인해 보세요!
 
 다만 코딩 편의성을 위해 Objective-C 대신 Swift로 플러그인을 제작했다 보니 유니티 공식 문서의 가이드라인만 보고 연동하기가 쉽지 않았었는데, 그 부분에 대해 적어보고자 한다.
 
