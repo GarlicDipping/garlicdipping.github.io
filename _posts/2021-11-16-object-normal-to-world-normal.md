@@ -31,6 +31,8 @@ mul(normalOS, (float3x3)GetWorldToObjectMatrix()));
 
 이를 이해하기 위해서는 수학적인 정리가 다소 필요해 적어둔다.
 
+<!--more-->
+
 ---
 
 우선 노말 좌표는 Tangent Space에 대한 이해를 필요로 한다.
