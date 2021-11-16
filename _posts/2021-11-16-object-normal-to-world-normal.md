@@ -71,7 +71,9 @@ mul(normalOS, (float3x3)GetWorldToObjectMatrix()));
 정규직교기저 정의에 의해 3의 내적 공식 역시 다음과 같이 변형 가능하다.
 
 ![Image](/assets/img/posts/20211116/05.png)
+
 ![Image](/assets/img/posts/20211116/06.png)
+
 ![Image](/assets/img/posts/20211116/07.png)
 
 그런데 1에서
@@ -85,6 +87,7 @@ mul(normalOS, (float3x3)GetWorldToObjectMatrix()));
 가 성립한다.
 
 ![Image](/assets/img/posts/20211116/10.png)
+
 ![Image](/assets/img/posts/20211116/11.png)
 
 따라서 탄젠트 공간의 노말 벡터를 월드 공간의 노말 벡터로 변형하기 위해서는 Model To World Matrix의 Inverse Transpose를 곱해야 한다.
